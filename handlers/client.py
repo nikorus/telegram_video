@@ -3,6 +3,7 @@
 На текущем этапе Пролекта, когда создана многофайловая структура обработки сообщений пользователей
 декораторы функций НЕ НУЖНЫ. Для наглядности их оставим закоментированными
 '''
+from keyboards.client_kb import kb_client
 
 '''
 В этот файл заносятся все, что находилось в файле мейн в разделе
@@ -24,14 +25,22 @@ dp bot - импортируем из модуля create_bot
 '''
 from create_bot import dp, bot
 
+'''импортируем клавиатуру
+'''
 
+from keyboards import client_kb
 
+'''
+Этот импорт , чтобы продемонстрировать как можно убрать пользовательскую клавиатуру
+после выполнения к-л команды пользователя
+'''
+from aiogram.types import ReplyKeyboardRemove
 
 # @dp.message_handler(commands=['start', 'help'])
 async def command_start(message: types.Message):
     """ Декоратор обработки команд 'start', 'help'  """
     try:
-        await bot.send_message(message.from_user.id, 'Приятного аппетита')
+        await bot.send_message(message.from_user.id, 'Приятного аппетита', reply_markup=kb_client)
         await message.delete()
     except:
         await message.reply('Общение с ботом через ЛС, напишите ему первый раз:https://t.me/Nikorus55_bot')
@@ -44,6 +53,9 @@ async def pizza_open_command(message: types.Message):
 async def pizza_place_command(message: types.Message):
     """ Декоратор обработки команды  Расположение """
     await bot.send_message(message.from_user.id, 'Дерибасовская - угол с Мясоедовской')
+    # ниже строка для демонстрации как убрать пользовательскую клавиатуру . В файле client_kb нужно убрать
+    # параметр , one_time_keyboard=True
+    # await bot.send_message(message.from_user.id, 'Дерибасовская - угол с Мясоедовской', reply_markup=ReplyKeyboardRemove())
 
 
 # @dp.message_handler(commands=['Меню'])
