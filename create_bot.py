@@ -6,6 +6,12 @@
 '''
 """ импортируем ос"""
 import os
+'''выбираем в качестве хранилища для хранения цепочек вопрос-ответ диалога
+пользователя с ботом - класс для хранения данных в оперативной памяти
+'''
+from aiogram.contrib.fsm_storage.memory import MemoryStorage
+# создаем экземпляр класса
+storage = MemoryStorage()
 from aiogram import Bot, types
 from aiogram.dispatcher import Dispatcher
 
@@ -17,4 +23,6 @@ token = os.getenv('TOKEN')
 # инициализируем бот
 bot = Bot(token)
 # инициализируем диспетчер передавая в него экземпляр бота
-dp = Dispatcher(bot)
+# dp = Dispatcher(bot)
+#  добавляем параметр бота, где будет хранится информация
+dp = Dispatcher(bot, storage=storage)
