@@ -100,7 +100,7 @@ async def www_call(callback: types.CallbackQuery):
     res = int(callback.data.split('_')[1])
     #  Заносить результаты будем в словарь  dict()
     #  проводим проверку для избежания повторного голосования - callback.from_user.id -это уникальный id  пользователя
-    #   f'- это ф строка - она позволяет привести данные к видк, который можно использовать
+    #   f'- это ф строка - она позволяет привести данные к типу, который можно использовать в операции if
     #   в res  будет 1 или -1
     if f'{callback.from_user.id}' not in answ:
         answ[f'{callback.from_user.id}'] = res
