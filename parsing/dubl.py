@@ -1,9 +1,3 @@
-
-
-
-
-
-
 # import os
 # from aiogram import Bot, types
 # from aiogram.dispatcher import Dispatcher
@@ -27,16 +21,20 @@ from bs4 import BeautifulSoup
 import re
 import lxml
 
+
 def searcher():
     response = requests.get('https://www.youtube.com/results?search_query=python')
-    soup = BeautifulSoup(response.content, 'lxml')
+    soup = BeautifulSoup(response.content, 'html.parser')
 
     search = soup.find_all('script')
-    # search = soup.find_all('script')[32]  # это номер в списке для примера
-    # key = '"videoID":"'
-    # data = re.findall(key+r"([^*]{11})", str(search)) #  [^*], обозначает любые символы кроме *!
-    # print(data)
-    print(search)
+
+    search = soup.find_all('script')[32]  # это номер в списке для примера
+    key = '"videoID":"'
+    # "videoId": "XKHEtdqhLK8"
+    data = re.findall(key + r"([^*]{11})", str(search))  # [^*], обозначает любые символы кроме *!
+    # data = re.findall(key, str(search))  # [^*], обозначает любые символы кроме *!
+    print(data)
+    # print(search)
 
 
 searcher()
