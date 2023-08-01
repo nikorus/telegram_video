@@ -20,21 +20,15 @@ import requests
 from bs4 import BeautifulSoup
 import re
 import lxml
+from youtube_search import YoutubeSearch
 
 
 def searcher():
-    response = requests.get('https://www.youtube.com/results?search_query=python')
-    soup = BeautifulSoup(response.content, 'html.parser')
-
-    search = soup.find_all('script')
-
-    search = soup.find_all('script')[32]  # это номер в списке для примера
-    key = '"videoID":"'
-    # "videoId": "XKHEtdqhLK8"
-    data = re.findall(key + r"([^*]{11})", str(search))  # [^*], обозначает любые символы кроме *!
-    # data = re.findall(key, str(search))  # [^*], обозначает любые символы кроме *!
-    print(data)
-    # print(search)
+    res = YoutubeSearch('python hb studio telegram бот', max_results=1).to_dict()
+    with open('../text2.py', 'w', encoding='utf-8') as r:
+        r.write(str(res))
 
 
 searcher()
+
+
